@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+
+import { useState } from 'react';
 import './App.css';
+import Direction from './components/Direction';
+import MyLocation from './components/MyLocation';
 
 function App() {
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+
+  const displayDirection = event =>{
+    event.preventDefault();
+    const start = event.target.origin.value;
+    const end = event.target.destination.value;
+    setOrigin(start);
+    setDestination(end);
+    
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={displayDirection}>
+        <input type="text" name="origin" required />
+        <br />
+        <input type="text" name='destination' required />
+        <br />
+        <input type="submit" value="Show Direction" />
+      </form>
+      <Direction origin={origin} destination={destination}></Direction>
+        {/* <MyLocation></MyLocation> */}
     </div>
   );
 }
